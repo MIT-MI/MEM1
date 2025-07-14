@@ -1,0 +1,5 @@
+__pycache__
+Mem1/train/logs
+Mem1/train/data
+Mem1/train/outputs
+Mem1/train/wandb
