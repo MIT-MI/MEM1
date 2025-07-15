@@ -14,10 +14,7 @@
 
 ## Demo Video
 
-<video width="600" controls>
-  <source src="assets/mem1_vid.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[![Demo Video](https://github.com/user-attachments/assets/8e6bdedf-f4ff-40ff-9e08-ae41248fca57)](https://github.com/user-attachments/assets/8e6bdedf-f4ff-40ff-9e08-ae41248fca57)
 
 ## Installation
 
