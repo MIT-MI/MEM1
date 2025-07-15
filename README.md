@@ -88,8 +88,8 @@ bash run_eval.sh
 
 ## Trained Model Details
 
-wandb: https://api.wandb.ai/links/Mem1/vl5osiui
-🤗 HF Checkpoint: https://huggingface.co/Mem-Lab/Qwen2.5-7B-RL-RAG-Q2-EM-Release
+- wandb: https://api.wandb.ai/links/Mem1/vl5osiui
+- 🤗 HF Checkpoint: https://huggingface.co/Mem-Lab/Qwen2.5-7B-RL-RAG-Q2-EM-Release
 
 ## Reference
 
