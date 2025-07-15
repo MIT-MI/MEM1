@@ -1,5 +1,6 @@
 # Mem1: Train your LLMs to reason and consolidate memory at the same time!
-> [[arXiv]](https://arxiv.org/abs/2506.15841) | [[Project Site]](https://mit-mi.github.io/mem1-site/)
+> This repo is the official code implementation of **MEM1: Learning to Synergize Memory and Reasoning for Efficient Long-Horizon Agents** <br>
+> [[arXiv]](https://arxiv.org/abs/2506.15841) | [[Project Site]](https://mit-mi.github.io/mem1-site/) <br>
 > **Zijian Zhou^, Ao Qu^, Zhaoxuan Wu, Sunghwan Kim, Alok Prakash, Daniela Rus, Jinhua Zhao, and Bryan Kian Hsiang Low, Paul Pu Liang**
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
