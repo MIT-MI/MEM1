@@ -86,6 +86,10 @@ You can evaluate the model using:
 bash run_eval.sh
 ```
 
+## Trained Model Details
+
+Wandb: https://api.wandb.ai/links/Mem1/vl5osiui
+
 ## Reference
 
 Please use the following bibtex citation format for your reference.
