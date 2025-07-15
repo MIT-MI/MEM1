@@ -14,10 +14,7 @@
 
 ## Demo Video
 
-<video width="600" controls>
-  <source src="assets/mem1_vid.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+🎥 [Demo video](https://raw.githubusercontent.com/MIT-MI/MEM1/main/assets/mem1_vid.mp4)
 
 ## Installation
 
