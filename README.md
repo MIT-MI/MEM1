@@ -14,7 +14,10 @@
 
 ## Demo Video
 
-[![Demo Video](assets/mem1_vid.mp4)](assets/mem1_vid.mp4)
+<video width="600" controls>
+  <source src="assets/mem1_vid.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ## Installation
 
