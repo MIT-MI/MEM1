@@ -100,7 +100,7 @@ Please use the following bibtex citation format for your reference.
 ```
 @misc{2025mem1learningsynergizememory,
   title        = {MEM1: Learning to Synergize Memory and Reasoning for Efficient Long-Horizon Agents},
-  author       = {Zijian Zhou and Ao Qu and Zhaoxuan Wu and Sunghwan Kim and Alok Prakash and Daniela Rus and Jinhua Zhao and Bryan Kian Hsiang Low and Paul Pu Liang},
+  author       = {Zhou, Zijian and Qu, Ao and Wu, Zhaoxuan and Kim, Sunghwan and Prakash, Alok and Rus, Daniela and Zhao, Jinhua and Low, Bryan Kian Hsiang and Liang, Paul Pu},
   year         = {2025},
   archivePrefix= {arXiv},
   primaryClass = {cs.CL},
