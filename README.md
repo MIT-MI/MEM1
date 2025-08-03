@@ -21,18 +21,11 @@
 
 ### Mem1 environment
 ```bash
-conda create -n mem1 python=3.9
-conda activate mem1
-# install torch [or you can skip this step and let vllm to install the correct version for you]
-pip install torch==2.4.0 --index-url https://download.pytorch.org/whl/cu121
-# install vllm
-pip3 install vllm==0.6.3 # or you can install 0.5.4, 0.4.2 and 0.3.1
-
 # Install requirements
-pip install -r requirements.txt
+conda env create -f environment.yml
 
 # verl
-pip install -e Mem1/
+pip install -e .
 
 # flash attention 2
 pip3 install flash-attn --no-build-isolation
@@ -115,3 +108,8 @@ The codebase has referred to the following repositories:
 - [veRL](https://github.com/volcengine/verl/tree/main)
 - [search-R1](https://github.com/PeterGriffinJin/Search-R1/tree/main)
 - [AgenticMemory](https://github.com/WujiangXu/AgenticMemory)
+
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=MIT-MI/MEM1&type=Date)](https://www.star-history.com/#MIT-MI/MEM1&Date)
