@@ -5,3 +5,4 @@ Mem1/train/outputs
 Mem1/train/wandb
 
 .DS_Store
+/verl.egg-info

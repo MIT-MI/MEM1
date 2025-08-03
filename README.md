@@ -21,10 +21,11 @@
 
 ### Mem1 environment
 ```bash
-# Install requirements
+# Install requirements. This may take a few minutes to complete.
 conda env create -f environment.yml
 
 # verl
+conda activate mem1
 pip install -e .
 
 # flash attention 2
