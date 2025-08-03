@@ -15,9 +15,9 @@
 import re
 import string
 import random
-from verl.utils.reward_score.llm import OpenAIClient
+# from verl.utils.reward_score.llm import OpenAIClient
 
-openai_client = OpenAIClient()
+# openai_client = OpenAIClient()
 
 def model_estimated_match(answer, golden_answer_1, golden_answer_2):
     prompt = f"""
