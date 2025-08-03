@@ -27,10 +27,6 @@ conda env create -f environment.yml
 # verl
 conda activate mem1
 pip install -e .
-
-# flash attention 2
-pip3 install flash-attn --no-build-isolation
-pip install wandb
 ```
 
 ### Retriever environment (optional)
