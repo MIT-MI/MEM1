@@ -1,4 +1,4 @@
-WORK_DIR=train
+WORK_DIR=.
 
 # Default batch size
 BATCH_SIZE=3
@@ -16,7 +16,7 @@ while [[ "$#" -gt 0 ]]; do
   esac
 done
 
-LOCAL_DIR=$WORK_DIR/data/nq_hotpotqa_train_multi_${BATCH_SIZE}
+LOCAL_DIR=$WORK_DIR/train/data/nq_hotpotqa_train_multi_${BATCH_SIZE}
 
 ## process multiple dataset search format train file
 DATA=nq,hotpotqa

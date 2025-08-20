@@ -1,4 +1,4 @@
-WORK_DIR=Search-R1
+WORK_DIR=.
 LOCAL_DIR=$WORK_DIR/data/nq_hotpotqa_train
 
 ## process multiple dataset search format train file

@@ -65,6 +65,7 @@ bash gen_data/scripts/data_process_multi.sh --batch_size 2
 
 3. Launch a local retrieval server:
 ```bash
+# First remember to change the `file_path` field of `Mem1/train/retrieval_launch.sh` to the path of your RAG files
 cd Mem1/train/
 bash retrieval_launch.sh
 ```

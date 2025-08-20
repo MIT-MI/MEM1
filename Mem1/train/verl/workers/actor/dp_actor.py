@@ -67,7 +67,7 @@ class DataParallelPPOActor(BasePPOActor):
             batch_size, seqlen = input_ids.shape
             attention_mask = micro_batch['attention_mask']
             if 'attention_mask_4d' in micro_batch:
-                attention_mask_4d = micro_batch['attention_mask_4d']
+                attention_mask_4d = micro_batch['attention_mask_4d'].to(torch.bfloat16)
             else:
                 attention_mask_4d = None
             position_ids = micro_batch['position_ids']

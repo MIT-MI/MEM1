@@ -1,4 +1,4 @@
-export CUDA_VISIBLE_DEVICES=0,1
+export CUDA_VISIBLE_DEVICES=4,5,6,7
 
 WAND_PROJECT='MEM1'
 
@@ -62,7 +62,7 @@ PYTHONUNBUFFERED=1 python3 -m $PROGRAM_ENTRY \
     critic.optim.lr_warmup_steps_ratio=0.015 \
     critic.model.path=$BASE_MODEL \
     critic.model.enable_gradient_checkpointing=true \
-    critic.ppo_micro_batch_size=2 \
+    critic.ppo_micro_batch_size=4 \
     critic.model.fsdp_config.param_offload=true \
     critic.model.fsdp_config.grad_offload=true \
     critic.model.fsdp_config.optimizer_offload=true \
@@ -73,7 +73,7 @@ PYTHONUNBUFFERED=1 python3 -m $PROGRAM_ENTRY \
     +trainer.val_only=false \
     +trainer.val_before_train=false \
     trainer.default_hdfs_dir=null \
-    trainer.n_gpus_per_node=2 \
+    trainer.n_gpus_per_node=4 \
     trainer.nnodes=1 \
     trainer.save_freq=20 \
     trainer.test_freq=150 \

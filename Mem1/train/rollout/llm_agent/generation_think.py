@@ -242,7 +242,7 @@ class LLMGenerationManager:
         """Calculate the kept lengths of the next observations."""
         if not information:
             next_obs_str = self.tokenizer.decode(next_obs_ids, skip_special_tokens=True)
-            kept_obs_str = next_obs_str.split('</think>')[1] if '</think>' in next_obs_str else next_obs_str
+            kept_obs_str = "<think>" + next_obs_str.split('<think>')[1] if '<think>' in next_obs_str else next_obs_str
             kept_obs_ids = self.tokenizer(kept_obs_str, add_special_tokens=False, return_tensors='pt')['input_ids']
             return (kept_obs_ids != self.tokenizer.pad_token_id).sum().item()
         else:
@@ -343,18 +343,12 @@ class LLMGenerationManager:
             rollings_active.batch['attention_mask'] = self.tensor_fn.create_attention_mask(input_ids)
             rollings_active.batch['position_ids'] = self.tensor_fn.create_position_ids(rollings_active.batch['attention_mask'])
 
-            # prepare for second step: stop at answer or search
-            rollings_active.meta_info.update(
-                {
-                    'stop': ["</answer>", " </answer>", "</answer> ", "</search>", " </search>", "</search> "]
-                }
-            )
-
+            # # FOR DEBUGGING: print the input and responses for step and action 2
             # if step >= 2:
-            #     import pdb; pdb.set_trace()
-
             #     responses_str = self.tokenizer.batch_decode(rollings_active.batch['input_ids'], skip_special_tokens=True)
 
+            #     import pdb; pdb.set_trace()
+                
             gen_output = self._generate_with_gpu_padding(rollings_active)
 
             # calculate the peak_seq_token_len and average_token_len_per_turn
@@ -430,24 +424,22 @@ class LLMGenerationManager:
         
         print("ACTIVE_TRAJ_NUM:", active_num_list)
         
+        ## FOR DEBUGGING: print all trajectories
         # import json
         # with open("reconstruction_list.json", "w") as f:
         #     new_reconstruction_list = [{k: self.tokenizer.decode(v, skip_special_tokens=True) if k != "num_rounds" else v for k, v in item.items()} for item in reconstruction_list]
         #     json.dump(new_reconstruction_list, f)
         
-
-        # print all trajectories
-        import random
-        print_index = random.randint(0, len(reconstruction_list) - 1)
-        print_trajectory = reconstruction_list[print_index]
-        print_content = ""
-        for k, v in print_trajectory.items():
-            if k == "num_rounds":
-                continue
-            print_content += f"{k}: {self.tokenizer.decode(v, skip_special_tokens=True)}\n"
-        print("########\n Full Trajectory ########\n", print_content)
-
-        # import pdb; pdb.set_trace()
+        # # print all trajectories
+        # import random
+        # print_index = random.randint(0, len(reconstruction_list) - 1)
+        # print_trajectory = reconstruction_list[print_index]
+        # print_content = ""
+        # for k, v in print_trajectory.items():
+        #     if k == "num_rounds":
+        #         continue
+        #     print_content += f"{k}: {self.tokenizer.decode(v, skip_special_tokens=True)}\n"
+        # print("########\n Full Trajectory ########\n", print_content)
 
         final_output = self._compose_final_output(reconstruction_list, meta_info)
         
