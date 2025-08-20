@@ -31,6 +31,7 @@ class BaseClient(abc.ABC):
 class VLLMOpenAIClient(BaseClient):
     def __init__(self):
         self.url = "http://localhost:8014"
+        self.tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-7B")
 
     def generate_response(self, prompt, model="gpt-4o", temperature=0.01, force_json=False):
         try:
@@ -59,9 +60,47 @@ class VLLMOpenAIClient(BaseClient):
             logger.error(f"Error: {str(e)}", exc_info=True)
             return f"Error: {str(e)}"
 
-    def make_completion(self, prompt, cur_obs, model, temperature=0.01, force_json=False):
-        raise NotImplementedError
+    def make_completion(self, initial_prompt, content, model="gpt-4o", temperature=0.01, force_json=False, is_last_turn=False):
+        prompt_message = [{"role": "user", "content": initial_prompt}]
+        prompt_message.append({"role": "assistant", "content": content})
+        prompt_message = self.tokenizer.apply_chat_template(prompt_message, tokenize=False)
 
+        # remove the <|im_end> at the end of the prompt
+        prompt_message = prompt_message[:-len("<|im_end|>\n")]
+
+        stop = []
+        if is_last_turn:
+            stop = ["</answer>"]
+        else:
+            stop = ["</search>", "</answer>"]
+
+        try:
+            response = requests.post(
+                self.url + "/v1/completions",
+                json={
+                    "model": model,
+                    "temperature": temperature,
+                    "prompt": prompt_message,
+                    "stop": stop,
+                    "top_p": 0.95,
+                    "top_k": -1,
+                    "max_tokens": 1024,
+                }
+            )
+
+            choice = response.json()['choices'][0]
+
+            content = choice["text"].strip()
+
+            if choice["stop_reason"] == "</search>":
+                content += "</search>"
+            elif choice["stop_reason"] == "</answer>":
+                content += "</answer>"
+
+            return content
+        except Exception as e:
+            logger.error(f"Error: {str(e)}", exc_info=True)
+            return f"Error: {str(e)}" 
 
 class LiteLLMClient(BaseClient):
     def __init__(self):

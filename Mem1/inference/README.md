@@ -20,7 +20,7 @@ For evaluation, the process is similar to that of distillation. If you use an op
 
 
 Then, run the rollout generation file
-- `python inference/generate_rollout.py --model [VLLM MODEL PATH] [--use_mem1] [--use_amem] --data_file data/xxx`
+- `python inference/generate_rollout.py --model [VLLM MODEL PATH] [--use_mem1] [--use_amem] --data_file train/data/xxx`
 
 
 After that, you can evaluate the model performance by running

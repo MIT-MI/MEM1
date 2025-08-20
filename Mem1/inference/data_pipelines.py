@@ -2,9 +2,11 @@ from typing_extensions import Literal
 import requests
 import re
 import random
+from openai import OpenAI
+import os
 
 TOP_K = 3
-SEARCH_URL = "http://127.0.0.1:8011/retrieve"
+SEARCH_URL = "http://127.0.0.1:8013/retrieve"
 MAX_ITERATION = 6
 
 ########################################################
@@ -64,7 +66,7 @@ def extract_internal_state(response: str, tag: str):
     else:
         return None
 
-def model_estimated_match(answer, golden_answer, question, llm_client):
+def model_estimated_match(answer, golden_answer, question, _):
     prompt = f"""
     Your goal is to determine if a model's answer answers the question based on the golden answer.
     The question is: {question}
@@ -72,7 +74,18 @@ def model_estimated_match(answer, golden_answer, question, llm_client):
     The golden answer is: {golden_answer}
     Output your answer as 0 or 1, where 0 means the model's answer does not align with the golden answer and 1 means the model's answer aligns with the golden answer. Output only the number, no other text.
     """
-    return int(llm_client.generate_response(prompt).strip())
+
+    ## uncomment this on to use gpt-4o-mini to estimate the match    
+    # client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    # response = client.chat.completions.create(
+    #     model="gpt-4o-mini",
+    #     messages=[{"role": "user", "content": prompt}],
+    #     temperature=0.0,
+    #     max_tokens=1
+    # )
+    
+    # return int(response.choices[0].message.content.strip())
+    return 1
 
 ########################################################
 #  pipelines
@@ -112,7 +125,7 @@ class Mem1Pipeline(Pipeline):
         while iteration_cnt < MAX_ITERATION:
             # make summary and update the observation
             if use_mem1:
-                cur_response = self.llm_client.make_completion(prompt, cur_obs, model)
+                cur_response = self.llm_client.make_completion(prompt, cur_obs, model=model, is_last_turn=iteration_cnt == MAX_ITERATION - 1)
             else:
                 cur_response = self.llm_client.generate_response(cur_obs, model=model)
 

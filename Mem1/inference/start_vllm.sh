@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Set environment variables
-export CUDA_VISIBLE_DEVICES=6  # Adjust based on available GPUs
+export CUDA_VISIBLE_DEVICES=3  # Adjust based on available GPUs
 # export MODEL_PATH="/raid/shared/mem1/models/Qwen2.5-7B-search-sft-v2/v0-20250511-083818/checkpoint-1485"  # Replace with your actual model path
-export MODEL_PATH="Qwen/Qwen2.5-14B-Instruct-AWQ"
+export MODEL_PATH="Mem-Lab/Qwen2.5-7B-RL-RAG-Q2-EM-Release"  # use the official MEM1 model
 
 # vLLM server configuration
 HOST="0.0.0.0"

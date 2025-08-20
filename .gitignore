@@ -8,3 +8,5 @@ Mem1/train/wandb
 /verl.egg-info
 
 *.log
+
+verl_checkpoints

@@ -6,12 +6,17 @@ random.seed(42)
 np.random.seed(42)
 
 pd.options.display.max_columns = 100
-from Mem1.inference.models import LiteLLMClient, AMemClient, VLLMOpenAIClient
+from models import LiteLLMClient, AMemClient, VLLMOpenAIClient
 import argparse
 import json
 import numpy as np
-from Mem1.inference.data_pipelines import Mem1Pipeline, model_estimated_match
-from Mem1.rollout.env.webshop_manager import WebShopEnvManager
+from data_pipelines import Mem1Pipeline, model_estimated_match
+import sys
+try:
+    sys.path.append("..")
+    from train.rollout.env.webshop.webshop_manager import WebShopEnvManager
+except Exception as e:
+    print(f"Error importing WebShopEnvManager: {e}")
 from tqdm import tqdm
 import logging
 import hashlib
@@ -103,7 +108,7 @@ if __name__ == "__main__":
                 reconstruction_dicts.append(json.loads(line))
         print(f"Loaded {len(reconstruction_dicts)} reconstruction dicts from {file_path}")
     else:
-        file_path = f'websearch_multi_3_train_reconstruction_dicts_{args.model.replace("/", "_")}_{inference_type}.jsonl'
+        file_path = f'{args.task_type}_train_reconstruction_dicts_{args.model.replace("/", "_")}.jsonl'
 
     # Read the test data
     if args.task_type == "rag" or args.task_type == "websearch":
@@ -151,7 +156,7 @@ if __name__ == "__main__":
             # prompt = row['question']
             prompt = row["prompt"][0]["content"]
             pipeline = Mem1Pipeline(client, inference_type=inference_type)
-            answer, results_dict = pipeline.run_llm_loop(prompt, model=model, use_mem1=args.use_mem1)
+            answer, results_dict = pipeline.run_llm_loop(prompt, model=model)
 
             print(f"Generated answer: {answer}, Golden answer: {row['reward_model']['ground_truth']}")
 
