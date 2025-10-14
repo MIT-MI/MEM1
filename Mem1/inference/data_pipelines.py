@@ -132,7 +132,10 @@ class Mem1Pipeline(Pipeline):
             # for the current implementation, use <think></think> for storing the internal state
             internal_state = extract_internal_state(cur_response, tag="think")
             
-            memory = cur_obs[len(prompt):]
+            if not is_compress_memory:
+                memory = cur_obs[len(prompt):]
+            else:
+                memory = cur_obs
             if self.llm_client.has_memory and memory:
                 self.llm_client.memory_system.add_note(memory)
             

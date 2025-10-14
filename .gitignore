@@ -1,8 +1,9 @@
 __pycache__
 Mem1/train/logs
-Mem1/train/data
+Mem1/data
 Mem1/train/outputs
 Mem1/train/wandb
+Mem1/train/verl.egg-info
 
 .DS_Store
 /verl.egg-info
