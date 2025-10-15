@@ -18,7 +18,7 @@
 [![Demo Video](https://github.com/user-attachments/assets/8e6bdedf-f4ff-40ff-9e08-ae41248fca57)](https://github.com/user-attachments/assets/8e6bdedf-f4ff-40ff-9e08-ae41248fca57)
 
 ## News
-- (Oct 2025) MEM1 has been accepted at NeurIPS 2025 Workshop MTI-LLM for **oral** presentation!
+- (Oct 2025) MEM1 has been accepted at NeurIPS 2025 Workshop MTI-LLM for **oral** presentation! (2 out of 230 submissions)
 - (Aug 2025) MEM1 has been accepted at COLM 2025 Workshop RAM2 for **oral** presentation!
 
 ## Installation
