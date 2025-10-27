@@ -17,7 +17,7 @@ def preprocess_text(text: str) -> str:
     return text
 
 def check_tags_balance(solution_str: str) -> bool:
-    tags_to_check = ['tool_call', 'think', 'answer']
+    tags_to_check = ['answer']
     
     for tag in tags_to_check:
         start_tag = f"<{tag}>"
@@ -57,7 +57,12 @@ def compute_peak_token_non_compression(data) -> float:
             solution_str += data[f"i{i}"]
         if f"t{i}" not in data and f"r{i}" not in data and f"i{i}" not in data:
             break
-    return len(encoding.encode(solution_str))
+    res = len(encoding.encode(solution_str))
+
+    if "memories" in data:
+        max_mem = max(len(encoding.encode(mem)) for mem in data["memories"])
+        res += max_mem
+    return res
 
 def compute_peak_token_compression(data) -> float:
     if data["Exact_match"] == 0:
@@ -82,6 +87,10 @@ def compute_peak_token_compression(data) -> float:
     if peak_count == 0:
         return None
 
+    if "memories" in data:
+        max_mem = max(len(encoding.encode(mem)) for mem in data["memories"])
+        peak_count += max_mem
+
     return peak_count
 
 
@@ -105,9 +114,9 @@ def compute_dependency_compression(data) -> float:
             new_solution_str += data[f"r{i}"]
         solution_str = new_solution_str
         if f"i{i}" in data:
-            li = len(encoding.encode(data[f"i{i}"]))
-            dependency_count += (len(encoding.encode(solution_str)) + li // 2) * li
-            total_length += li
+            # li = len(encoding.encode(data[f"i{i}"]))
+            # dependency_count += (len(encoding.encode(solution_str)) + li // 2) * li
+            # total_length += li
             solution_str += data[f"i{i}"]
         if f"t{i}" not in data and f"r{i}" not in data and f"i{i}" not in data:
             break
@@ -115,7 +124,6 @@ def compute_dependency_compression(data) -> float:
     if total_length == 0:
         return None
     
-    dependency_count = dependency_count / total_length
     return dependency_count
 
 
@@ -168,9 +176,9 @@ def compute_dependency_non_compression(data) -> float:
             total_length += lr
             solution_str += data[f"r{i}"]
         if f"i{i}" in data:
-            li = len(encoding.encode(data[f"i{i}"]))
-            dependency_count += (len(encoding.encode(solution_str)) + li // 2) * li
-            total_length += li
+            # li = len(encoding.encode(data[f"i{i}"]))
+            # dependency_count += (len(encoding.encode(solution_str)) + li // 2) * li
+            # total_length += li
             solution_str += data[f"i{i}"]
         if f"t{i}" not in data and f"r{i}" not in data and f"i{i}" not in data:
             break
@@ -178,7 +186,6 @@ def compute_dependency_non_compression(data) -> float:
     if total_length == 0:
         return None
 
-    dependency_count = dependency_count / total_length
     return dependency_count
 
 
@@ -191,9 +198,10 @@ def compute_score(question,solution_str, ground_truths, val_type='f1',cot=False)
     if not check_tags_balance(solution_str):
         return -0.0
     try:
-        answer_match = re.search(r'<answer>(.*?)</answer>', solution_str, re.DOTALL)
+        answer_match = re.findall(r'<answer>(.*?)</answer>', solution_str, re.DOTALL)
+
         if answer_match:
-            answer_content = answer_match.group(1).strip()
+            answer_content = answer_match[-1].strip()
         else:
             return -0.0
     except Exception as e:
@@ -241,6 +249,12 @@ def compute_score(question,solution_str, ground_truths, val_type='f1',cot=False)
             return 0
 
     return max_score
+
+
+def compute_inference_time(data) -> float:
+    if "time_taken" not in data:
+        return None
+    return data["time_taken"]
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
