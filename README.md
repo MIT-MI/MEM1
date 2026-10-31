@@ -7,7 +7,7 @@
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
 ![GitHub Repo stars](https://img.shields.io/github/stars/MIT-MI/MEM1)
 
-⭐️ Please star this repository if you find it helpful!
+⭐️ Please star this repository if you find it helpful! 
 
 ---
 
